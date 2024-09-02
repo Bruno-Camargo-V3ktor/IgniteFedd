@@ -53,7 +53,7 @@ function App() {
         <main>
           {
             posts.map( (post) =>
-              (<Post {...post} />)
+              (<Post key={ post.id } {...post} />)
             )
           }
 

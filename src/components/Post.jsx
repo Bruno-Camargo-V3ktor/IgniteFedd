@@ -61,9 +61,9 @@ export function Post(props) {
             
             <div className={styles.content}>
                 { content.map( item => {
-                    if( item.type === 'paragraph' ) return <p>{item.content}</p>
-                    else if( item.type === 'link' ) return <a>{item.content}</a>
-                    else if( item.type === 'hashtag' ) return <p><a>{item.content}</a></p>
+                    if( item.type === 'paragraph' ) return <p key={item.content} >{item.content}</p>
+                    else if( item.type === 'link' ) return <a key={item.content} >{item.content}</a>
+                    else if( item.type === 'hashtag' ) return <p key={item.content} ><a>{item.content}</a></p>
                 }   
                 ) }
             </div>
@@ -86,7 +86,7 @@ export function Post(props) {
 
             <div className={styles.commentList}>
                 {
-                    comments.map( comment => <Comment content={ comment } /> )
+                    comments.map( comment => <Comment key={ comment } content={ comment } /> )
                 }
             </div>
 
