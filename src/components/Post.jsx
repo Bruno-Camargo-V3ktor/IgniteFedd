@@ -1,6 +1,11 @@
+import { ptBR } from 'date-fns/locale'
 import styles from '../styles/Post.module.css'
+
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
+
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBr from 'date-fns/locale/pt-BR'
 
 export function Post(props) {
     
@@ -10,6 +15,9 @@ export function Post(props) {
         publishedAt = new Date(),
         content = [""]
     } = props
+
+    const publishedDateFormatted = format( publishedAt, "d 'de' LLLL 'ás' HH:mm'h'", {locale: ptBr} );
+    const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {locale: ptBR, addSuffix: true} );
 
     //Render
     return (
@@ -28,22 +36,21 @@ export function Post(props) {
                 </div>
 
                 <time 
-                  dateTime='2024-08-21 19:00:00' 
-                  title='21 de agosto de 2024 ás 19:00'
+                  dateTime = { publishedAt.toISOString() }
+                  title = { publishedDateFormatted }
                   >
-                    Publicado há 1h
+                    { publishedDateRelativeToNow }
                 </time>
 
             </header>
             
             <div className={styles.content}>
-                <p>Fala pessoal 👋</p>
-                <p>Finalmente finalizei meu novo site/portfólio. Foi um baita desafio criar todo o design e codar na unha, mas consegui 💪🏻 </p>
-                <p>Acesse e deixe seu feedback 👉 <a href='#'>devonlane.design</a></p>
-                <p>
-                    <a href='#'>#uiux</a>{' '}
-                    <a href='#'>#userexperience</a>
-                </p>
+                { content.map( item => {
+                    if( item.type === 'paragraph' ) return <p>{item.content}</p>
+                    else if( item.type === 'link' ) return <a>{item.content}</a>
+                    else if( item.type === 'hashtag' ) return <p><a>{item.content}</a></p>
+                }   
+                ) }
             </div>
 
             <form className={styles.commentForm} >
