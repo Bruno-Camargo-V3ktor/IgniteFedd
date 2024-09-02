@@ -4,6 +4,9 @@ import { Avatar } from './Avatar'
 
 export function Comment(props) {
     
+    // Atributos
+    const { content="" } = props
+
     // Render
     return (
         <div className={styles.comment}>
@@ -28,7 +31,7 @@ export function Comment(props) {
                         </button>
                     </header>
 
-                    <p>Muito bom Dev, parabéns!! 👏👏</p>
+                    <p>{content}</p>
                 </div>
 
                 <footer>

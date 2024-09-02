@@ -8,12 +8,6 @@ import { format, formatDistanceToNow } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
 import { useState } from 'react'
 
-const comments = [
-    1,
-    2,
-    3
-]
-
 export function Post(props) {
     
     //Atributos
@@ -27,13 +21,17 @@ export function Post(props) {
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {locale: ptBR, addSuffix: true} );
 
     // Estados
-    const [comments, setComments] = useState( [1, 2, 3] )
+    const [newCommentText, setNewCommentText] = useState("")
+    const [comments, setComments] = useState( [
+        "Post muito bacana men !!!"
+    ] )
 
     //Métodos
     function handleCreateNewComment( event ) {
         event.preventDefault()
 
-        setComments( [...comments, comments.length+1] );
+        setComments( [...comments, newCommentText] );
+        setNewCommentText("");
     }
 
     //Render
@@ -73,7 +71,12 @@ export function Post(props) {
             <form onSubmit={ handleCreateNewComment } className={styles.commentForm} >
                <strong>Deixe seu feedback</strong>
 
-               <textarea 
+               <textarea
+                 name='comment'
+
+                 value={ newCommentText }
+                 onChange={ (event) => setNewCommentText(event.target.value) }
+
                  placeholder='Deixe um comentário'
                />
                 <footer>
@@ -83,7 +86,7 @@ export function Post(props) {
 
             <div className={styles.commentList}>
                 {
-                    comments.map( comment => <Comment /> )
+                    comments.map( comment => <Comment content={ comment } /> )
                 }
             </div>
 
