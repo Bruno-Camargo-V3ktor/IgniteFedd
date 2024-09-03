@@ -5,7 +5,7 @@ import { Avatar } from './Avatar'
 export function Comment(props) {
     
     // Atributos
-    const { content="" } = props
+    const { content="", onDeleteComment: headerDeleteComment } = props
 
     // Render
     return (
@@ -26,7 +26,7 @@ export function Comment(props) {
                             </time>
                         </div>
 
-                        <button title='Deletar comentário'>
+                        <button title='Deletar comentário' onClick={ () =>  headerDeleteComment(content) }>
                             <Trash size={24} />
                         </button>
                     </header>

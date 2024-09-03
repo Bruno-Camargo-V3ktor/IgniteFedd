@@ -34,6 +34,10 @@ export function Post(props) {
         setNewCommentText("");
     }
 
+    function deleteComment(comment) {
+        setComments( comments.filter( c => c != comment ) )
+    }
+
     //Render
     return (
        <article className={styles.post}>
@@ -86,7 +90,7 @@ export function Post(props) {
 
             <div className={styles.commentList}>
                 {
-                    comments.map( comment => <Comment key={ comment } content={ comment } /> )
+                    comments.map( comment => <Comment key={ comment } content={ comment } onDeleteComment={deleteComment} /> )
                 }
             </div>
 
