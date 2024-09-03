@@ -34,6 +34,10 @@ export function Post(props) {
         setNewCommentText("");
     }
 
+    function handleNewCommentInvalid(event) {
+        event.target.setCustomValidity("Esse campo é obrigatorio")
+    }
+
     function deleteComment(comment) {
         setComments( comments.filter( c => c != comment ) )
     }
@@ -77,14 +81,17 @@ export function Post(props) {
 
                <textarea
                  name='comment'
-
                  value={ newCommentText }
-                 onChange={ (event) => setNewCommentText(event.target.value) }
-
+                 onChange={ (event) =>  { setNewCommentText(event.target.value); event.target.setCustomValidity(""); } }
                  placeholder='Deixe um comentário'
+                 
+                 onInvalid={handleNewCommentInvalid}
+                 required
                />
                 <footer>
-                    <button type='submit'>Publicar</button> 
+                    <button type='submit' disabled={ newCommentText.length === 0 }>
+                        Publicar
+                    </button> 
                 </footer>
             </form>
 
